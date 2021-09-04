@@ -8,63 +8,41 @@ import { request } from "api/api";
 import axios from "axios";
 import { useAsync } from "react-async";
 
+// async function getInit() {
+//   const rootNodes = await request();
+//   // rootNodes[0]
+//   // await request().then((result) => {
+//   //   result.forEach((item) => rootNodes.push(item));
+//   // });
+//   // console.log(rootNodes);
+//   return rootNodes;
+// }
+
 function App() {
+  // getInit().then((result) => console.log(result));
+  // console.log(getInit().then((result)=>));
   const [state, setState] = useState({
-    isRoot: false,
-    nodes: [
-      {
-        id: "1",
-        name: "노란고양이",
-        type: "DIRECTORY",
-        filePath: null,
-        parent: null,
-      },
-      {
-        id: "3",
-        name: "까만고양이",
-        type: "DIRECTORY",
-        filePath: null,
-        parent: null,
-      },
-      {
-        id: "10",
-        name: "고등어무늬 고양이",
-        type: "DIRECTORY",
-        filePath: null,
-        parent: null,
-      },
-      {
-        id: "13",
-        name: "삼색이 고양이",
-        type: "DIRECTORY",
-        filePath: null,
-        parent: null,
-      },
-      {
-        id: "14",
-        name: "회색고양이",
-        type: "DIRECTORY",
-        filePath: null,
-        parent: null,
-      },
-      {
-        id: "20",
-        name: "하얀고양이",
-        type: "DIRECTORY",
-        filePath: "/images/20201218_002047.jpg",
-        parent: null,
-      },
-    ],
+    isRoot: true,
+    nodes: [],
     depth: [],
   });
+  // const getInit = async () => {
+  //   // const n = [];
+  //   await request().then((result) => state.nodes.push(result));
+  //   // return n;
+  // };
+  // // setState(...state,nodes:{getInit()});
+  // // getInit().then((result) => state.nodes.push(result));
+  console.log(state.nodes);
   const onClick = async (e) => {
-    console.log(e);
+    // console.log(e);
     if (e.type === "DIRECTORY") {
       console.log("디렉토리다");
       // const nextNodes = await request();
       const nextNodes = await request(e.id);
       setState({
         ...state,
+        isRoot: false,
         depth: [...state.depth, e],
         nodes: nextNodes,
       });
@@ -87,6 +65,10 @@ function App() {
   // setState((nextState) => {
   //   return { ...nextState };
   // });
+  // if (state.isRoot) {
+  //   init();
+  // }
+  if (state.nodes.length === 0) init();
   return (
     <div className="app">
       <Breadcrumb initialState={state} />

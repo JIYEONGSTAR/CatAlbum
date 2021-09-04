@@ -10,24 +10,23 @@ function Nodes({ initialState, onClick }) {
     onClick(selectedNode);
   };
   return (
-    <ul>
+    <div className="Nodes">
       {nodes.map((list) => {
         const iconPath =
           list.type === "FILE" ? "assets/file.png" : "assets/directory.png";
-        // console.log(list);
         return (
-          <div>
-            <li>{list.name}</li>
+          <div className="Node">
             <img
               src={iconPath}
               alt={list.id}
               onClick={onNodeClick}
               // value={list.id}
             />
+            {list.name}
           </div>
         );
       })}
-    </ul>
+    </div>
   );
 }
 

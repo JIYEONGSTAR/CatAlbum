@@ -26,11 +26,19 @@ function Breadcrumb({ initialState }) {
   //     nodes: cache[nextDepth[nextDepth.length - 1].id],
   //   });
   // };
-
+  const state = initialState;
+  // console.log(initialState);
+  // console.log(state.depth[0].name);
   return (
     <div>
       <nav className="Breadcrumb">
-        <div className="nav-item">root</div>
+        {/* {initialState.map((list)=>)} */}
+        <div className="nav-item">
+          root {!state.isRoot ? `-${state.depth[0].name} ` : ""}
+        </div>
+        {/* {state.map((list) => (
+          <div>{list.name}</div>
+        ))} */}
       </nav>
     </div>
   );
