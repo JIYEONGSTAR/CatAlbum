@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import ImageView from "./ImageView";
 function Nodes({ initialState, onClick }) {
   const { nodes } = initialState;
   // const [state, setState] = useState();

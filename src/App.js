@@ -8,37 +8,17 @@ import { request } from "api/api";
 import axios from "axios";
 import { useAsync } from "react-async";
 
-// async function getInit() {
-//   const rootNodes = await request();
-//   // rootNodes[0]
-//   // await request().then((result) => {
-//   //   result.forEach((item) => rootNodes.push(item));
-//   // });
-//   // console.log(rootNodes);
-//   return rootNodes;
-// }
-
 function App() {
-  // getInit().then((result) => console.log(result));
-  // console.log(getInit().then((result)=>));
   const [state, setState] = useState({
     isRoot: true,
     nodes: [],
     depth: [],
+    selectedFilePath: null,
   });
-  // const getInit = async () => {
-  //   // const n = [];
-  //   await request().then((result) => state.nodes.push(result));
-  //   // return n;
-  // };
-  // // setState(...state,nodes:{getInit()});
-  // // getInit().then((result) => state.nodes.push(result));
-  console.log(state.nodes);
+
   const onClick = async (e) => {
-    // console.log(e);
+    console.log(e);
     if (e.type === "DIRECTORY") {
-      console.log("디렉토리다");
-      // const nextNodes = await request();
       const nextNodes = await request(e.id);
       setState({
         ...state,
@@ -47,7 +27,8 @@ function App() {
         nodes: nextNodes,
       });
     } else if (e.type === "FILE") {
-      console.log("파일이다");
+      const selectedFilePath = e.filepath !== null ? e.filePath : null;
+      setState({ ...state, selectedFilePath });
     }
   };
   const init = async () => {
@@ -62,18 +43,17 @@ function App() {
       throw new Error(err);
     }
   };
-  // setState((nextState) => {
-  //   return { ...nextState };
-  // });
-  // if (state.isRoot) {
-  //   init();
-  // }
+
   if (state.nodes.length === 0) init();
   return (
     <div className="app">
       <Breadcrumb initialState={state} />
       <Nodes initialState={state} onClick={onClick} />
-      {/* <ImageView initialState={state.selectedNodeImage} /> */}
+      {state.selectedFilePath !== null ? (
+        <ImageView initialState={state.selectedFilePath} />
+      ) : (
+        ""
+      )}
     </div>
   );
 }
