@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 function Nodes({ initialState, onClick, onBackClick }) {
   const { nodes, isRoot } = initialState;
-  const onNodeClick = (e) => {
+  const handleClick = (e) => {
     const selectedNode = nodes.find((node) => node.id === e.target.alt);
     onClick(selectedNode);
   };
@@ -17,7 +17,7 @@ function Nodes({ initialState, onClick, onBackClick }) {
           list.type === "FILE" ? "assets/file.png" : "assets/directory.png";
         return (
           <div className="Node">
-            <img src={iconPath} alt={list.id} onClick={onNodeClick} />
+            <img src={iconPath} alt={list.id} onClick={handleClick} />
             {list.name}
           </div>
         );

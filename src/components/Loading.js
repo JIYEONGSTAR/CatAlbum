@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-function Loading({ initialState }) {
-  const [state, setState] = useState(initialState);
+function Loading() {
   return (
     <div className="Loading Modal">
       <div className="content">
