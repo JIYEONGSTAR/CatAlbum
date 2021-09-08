@@ -1,27 +1,23 @@
 import React, { useState } from "react";
-import ImageView from "./ImageView";
-function Nodes({ initialState, onClick }) {
-  const { nodes } = initialState;
-  // const [state, setState] = useState();
-  // setState();
+function Nodes({ initialState, onClick, onBackClick }) {
+  const { nodes, isRoot } = initialState;
   const onNodeClick = (e) => {
-    // console.log(e.target.alt);
     const selectedNode = nodes.find((node) => node.id === e.target.alt);
     onClick(selectedNode);
   };
   return (
     <div className="Nodes">
+      {!isRoot && (
+        <div class="Node" onClick={onBackClick}>
+          <img src="/assets/prev.png" alt="" />
+        </div>
+      )}
       {nodes.map((list) => {
         const iconPath =
           list.type === "FILE" ? "assets/file.png" : "assets/directory.png";
         return (
           <div className="Node">
-            <img
-              src={iconPath}
-              alt={list.id}
-              onClick={onNodeClick}
-              // value={list.id}
-            />
+            <img src={iconPath} alt={list.id} onClick={onNodeClick} />
             {list.name}
           </div>
         );
